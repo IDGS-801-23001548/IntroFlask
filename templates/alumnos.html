@@ -1,0 +1,16 @@
+{% extends "layout.html"%}
+
+{% block content %}
+{% import "_macros.html" as macros %}
+<form action="/alumnos" method="post">
+
+    {{ macros.datos("nombre","Ingresa nombre") }}
+    {{ macros.datos("apaterno","Ingresa apaterno") }}
+    {{ macros.datos("edad","Ingresa edad", "number") }}
+    {{ macros.datos("correo","Ingresa mail", "email") }}
+    {{ macros.datos("contraseña","Ingresa contraseña", "password") }}
+
+    <button class="btn btn-primary" value="calcular">Calcular</button>
+
+</form>
+{% endblock %}
