@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+{% import "_macros.html" as macros %}
+
+<form action="/distancia" method="POST">
+
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" id="{{csrf_token()}}">
+
+    {{macros.datos("x1", "Ingrese X1", "number")}}
+    {{macros.datos("y1", "Ingrese y1", "number")}}
+    {{macros.datos("x2", "Ingrese X2", "number")}}
+    {{macros.datos("y2", "Ingrese y2", "number")}}
+
+    <button type="submit" class="btn btn-primary">Calcular</button>
+
+</form>
+
+<h1>x1: {{x1}}</h1>
+<h1>x2: {{x2}}</h1>
+<h1>y1: {{y1}}</h1>
+<h1>y2: {{y2}}</h1>
+<h1>Distancia: {{distancia}}</h1>
+
+{% endblock %}
