@@ -37,6 +37,15 @@
                             href="{{url_for('alumnos')}}">Alumnos</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'boletos' %}active{% endif %}"
+                            href="{{url_for('boletos')}}">Boletos</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'distancia' %}active{% endif %}"
+                            href="{{url_for('distancia')}}">Distancia</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -53,8 +62,10 @@
         {%endif%}
         {%endwith%}
 
+    <div class="container mt-5 pt-4">
         {% block content%}
         {% endblock %}
+    </div>
     </div>
     <script src="../static/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

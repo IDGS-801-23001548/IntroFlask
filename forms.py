@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, EmailField
+from wtforms import StringField, IntegerField, EmailField, RadioField
 from wtforms import validators
+from wtforms.validators import ValidationError
+
 
 class UserForm(FlaskForm):
     matricula = IntegerField("Matricula", [
@@ -24,3 +26,6 @@ class UserForm(FlaskForm):
     correo = EmailField("Correo", [
         validators.Email(message="Ingresa un correo valido")
     ])
+    
+class DistanciaForm(FlaskForm):
+    pass

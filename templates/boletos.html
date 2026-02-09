@@ -1,0 +1,35 @@
+{% extends "layout.html"%}
+
+{% block content %}
+
+{% import "_macros.html" as macros %}
+
+<form action="/boletos" method="POST"> 
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" id="{{csrf_token()}}">
+
+    {{macros.entradas("nombre", "Ingrese el nombre", errors=form.nombre.errors)}}
+
+    {{ macros.entradas("compradores","Ingrese cantidad", "number", form.compradores.errors)}}
+
+    <label class="form-label">Tarjeta Cineco</label>
+    
+    {% if form.tarjeta.errors %}
+        <div class="text-danger mb-1">{{ form.tarjeta.errors[0] }}</div>    
+    {% endif %} 
+
+    {{macros.radio("tarjeta", "Sí", "1")}} 
+    {{ macros.radio("tarjeta", "No", "0") }} 
+
+    {{macros.entradas("boletos", "Ingrese cantidad", "number", form.boletos.errors)}} 
+
+    <button type="submit" class="btn btn-primary">Procesar</button> 
+</form>
+
+<h1>Nombre: {{nombre}}</h1> 
+<h1>Compradores: {{compradores}}</h1> 
+<h1>Trajeta: {{tarjeta}}</h1> 
+<h1>Boletos: {{boletos}}</h1> 
+<h1 style="color: green">Total: {{total}}</h1> 
+
+{% endblock %}

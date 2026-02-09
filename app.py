@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request
 from flask import flash
 from flask_wtf.csrf import CSRFProtect
+import math
 
-import forms
+import forms, userform
 
 app = Flask(__name__)
 
@@ -84,6 +85,50 @@ def operas():
         <input type="text" id="name" name="name" requiered>
     </form>
     '''
+    
+@app.route("/boletos", methods=['GET', 'POST'])
+def boletos():
+    usuario_class = userform.boletos()
+    total = 0
+    boletos = usuario_class.boletos.data
+    tarjeta = usuario_class.tarjeta.data
+    nombre = usuario_class.nombre.data
+    compradores = usuario_class.compradores.data
+
+    if request.method == 'POST' and usuario_class.validate_on_submit():
+        total = boletos * 12
+
+        if boletos > 5:
+            total *= 0.85
+        elif boletos >= 3:
+            total *= 0.90
+
+        if tarjeta == '1':
+            total *= 0.90
+
+    return render_template("boletos.html", form=usuario_class, total=total, nombre=nombre, compradores=compradores, tarjeta=tarjeta, boletos=boletos)
+
+
+@app.route("/distancia", methods=['GET', 'POST'])
+def distancia():
+
+    form = forms.DistanciaForm()
+    distancia=0
+    x1=0
+    x2=0
+    y1=0
+    y2=0
+    
+    if request.method == 'POST':
+        
+        x1 = float(request.form['x1'])
+        x2 = float(request.form['x2'])
+        y1 = float(request.form['y1'])
+        y2 = float(request.form['y2'])
+        
+        distancia = math.sqrt(pow((x2-x1),2) + pow((y2-y1),2))
+    
+    return render_template("distancia.html", form=form, x1=x1,x2=x2, y1=y1, y2=y2, distancia=distancia)
 
 if __name__ == "__main__":
     csrf.init_app(app)
